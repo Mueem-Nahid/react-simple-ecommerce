@@ -1,0 +1,32 @@
+.product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.product img {
+    width: 200px;
+    height: 200px;
+}
+
+.info {
+   margin-left: 15px;
+}
+
+.add-to-cart-btn {
+    background-color: #f0c14b;
+    border-color: #a88734 #9c7e31 #846a29;
+    border-style: solid;
+    color: black;
+    font-weight: 600;
+    width: 200px;
+    height: 26px;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.icon {
+    margin-bottom: 15px;
+    color: goldenrod;
+}
