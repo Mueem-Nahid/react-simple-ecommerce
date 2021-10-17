@@ -17,10 +17,12 @@ const OrderReview = () => {
         deleteFromDb(key);
     }
 
-    const handlePlaceOrder = () => {
-        //pushing a new route 'place-order' into hisotry
+    const handleShipping = () => {
+        /*pushing a new route 'place-order' into hisotry
         history.push('/place-order');
-        clearTheCart(); //calling clearTheCart func from fakedb.js
+        clearTheCart(); calling clearTheCart func from fakedb.js */
+
+        history.push('/shipping');
     }
 
     return (
@@ -36,7 +38,7 @@ const OrderReview = () => {
             <div className="cart-container">
                 <Cart cart={cart}>
                     {/* setting a button and sending it to cart */}
-                    <button onClick={handlePlaceOrder} className="add-to-cart-btn">Place order</button>
+                    <button onClick={handleShipping} className="add-to-cart-btn">Proceed to shipping</button>
                 </Cart>
             </div>
         </div>
