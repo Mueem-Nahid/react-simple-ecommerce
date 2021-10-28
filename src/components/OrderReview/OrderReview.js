@@ -7,8 +7,8 @@ import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
 
 const OrderReview = () => {
-    const [products] = useProducts(); //calling useProducts() and destructuring
-    const [cart, setCart] = useCart(products); //calling useCart() hook and taking cart and setCart
+    //const [products] = useProducts(); //calling useProducts() and destructuring
+    const [cart, setCart] = useCart(); //calling useCart() hook and taking cart and setCart
     const history = useHistory();
 
     const handleRemove = key => { //function to remove added item

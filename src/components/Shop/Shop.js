@@ -5,20 +5,30 @@ import {addToDb, getStoredCart} from '../../utilities/fakedb'
 import './Shop.css';
 import cartLogo from '../../images/shopping-cart.png';
 import { Link } from 'react-router-dom';
+import useCart from '../../hooks/useCart';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useCart();
     const [displayProducts, setDisplayProducts] = useState([]) //state to display searched products
+
+    //---------useSate for pagination----------
+    const [pageCount, setPageCount] = useState(0);
+    const [page, setPage] = useState(0);
+    const size = 10;
 
     useEffect(() => {
         //console.log('product API called');
-        fetch('./products.json')
+        fetch(`http://localhost:5000/products?page=${page}&&size=${size}`)
         .then(res => res.json())
-        .then(data => {setProducts(data);
-        setDisplayProducts(data);})
-        //console.log('products received');
-    }, []);
+        .then(data => {
+            setProducts(data.products);
+            setDisplayProducts(data.products);
+            const count = data.count; //taking the count value for pagination from server
+            const pageNumber = Math.ceil(count/size);
+            setPageCount(pageNumber);
+        })
+    }, [page]);
 
     const handleAddToCart = product => {
         const exists = cart.find(pd => pd.key === product.key);
@@ -60,7 +70,7 @@ const Shop = () => {
             }
             setCart(storeCart); //calling setCart func with storeCart
         }
-    }, [products]); //this useEffect will denend on products unless products won't be found
+    }, []); //this useEffect will denend on products unless products won't be found
 
     const handleSearch = event => {
         const searchText = event.target.value;
@@ -84,6 +94,11 @@ const Shop = () => {
                             product={product}
                             handleAddToCart = {handleAddToCart}></Product>)
                     }
+                    <div className="pagination">
+                        {
+                            [...Array(pageCount).keys()].map( number => <button key={number} className={number===page ? 'selected' : ''} onClick={()=>(setPage(number))}> {number+1} </button> )
+                        }
+                    </div>
                 </div>
                 <div className="cart-container">
                     <Cart cart={cart}>
